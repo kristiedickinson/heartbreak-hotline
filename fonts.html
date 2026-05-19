@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>HH font comparison v2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Anton&family=Bebas+Neue&family=Bodoni+Moda:ital,wght@1,400;1,600&family=Bowlby+One+SC&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Courier+Prime:wght@400;700&family=Cutive+Mono&family=DM+Mono:wght@500&family=EB+Garamond:ital,wght@1,400;1,500&family=IBM+Plex+Mono:wght@400;700&family=Italiana&family=Lora:ital,wght@1,400;1,500&family=Old+Standard+TT:ital,wght@1,400&family=Playfair+Display:ital,wght@1,400;1,500&family=Sorts+Mill+Goudy:ital@1&family=Space+Mono:wght@400;700&family=Special+Elite&family=Ultra&family=VT323&family=Volkhov:ital,wght@1,400;1,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #3A1F1A;
+      --ink-soft: #5A3F3A;
+      --coral: #E94B3C;
+      --paper: #FBF6EE;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 40px 32px 60px;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Georgia, serif;
+    }
+    .container { max-width: 880px; margin: 0 auto; }
+    h1 { font-family: Georgia, serif; font-weight: 700; font-size: 30px; margin: 0 0 8px; }
+    .lead { font-family: Georgia, serif; font-size: 14px; color: var(--ink-soft); margin: 0 0 36px; }
+    .section { margin: 0 0 48px; }
+    .section-title {
+      font-family: Georgia, serif;
+      font-weight: 700;
+      font-size: 18px;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 6px;
+      margin: 0 0 18px;
+    }
+    .section-note {
+      font-family: Georgia, serif;
+      font-size: 13px;
+      color: var(--ink-soft);
+      font-style: italic;
+      margin: 0 0 18px;
+    }
+    .specimen {
+      background: #fff;
+      border: 1.5px solid rgba(58,31,26,0.25);
+      border-radius: 8px;
+      padding: 16px 22px;
+      margin: 0 0 12px;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 22px;
+      align-items: center;
+    }
+    .specimen-meta { font-family: Georgia, serif; }
+    .specimen-name { font-weight: 700; font-size: 13px; color: var(--ink); margin: 0 0 3px; }
+    .specimen-desc { font-size: 11.5px; color: var(--ink-soft); font-style: italic; line-height: 1.4; margin: 0; }
+    .specimen-sample { color: var(--ink); }
+    .italic-sample { font-size: 21px; line-height: 1.4; }
+    .italic-sample .mech { display: block; font-size: 16px; color: var(--ink-soft); margin-top: 5px; }
+    .phone-sample { font-size: 36px; letter-spacing: 0.045em; line-height: 1; }
+    .stepnum-sample {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+    .stepnum-sample .digit {
+      width: 44px;
+      height: 44px;
+      border: 1.5px solid var(--coral);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--coral);
+      line-height: 1;
+    }
+    .current-badge {
+      display: inline-block;
+      background: var(--coral);
+      color: var(--paper);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 2px 5px;
+      border-radius: 3px;
+      margin-left: 4px;
+      vertical-align: middle;
+    }
+
+    /* === Font classes === */
+    /* italic */
+    .f-playfair-i { font-family: 'Playfair Display', serif; font-style: italic; }
+    .f-ebgaramond-i { font-family: 'EB Garamond', serif; font-style: italic; }
+    .f-cormorant-i { font-family: 'Cormorant Garamond', serif; font-style: italic; }
+    .f-italiana { font-family: 'Italiana', serif; }
+    .f-lora-i { font-family: 'Lora', serif; font-style: italic; }
+    .f-sortsmill-i { font-family: 'Sorts Mill Goudy', serif; font-style: italic; }
+    .f-bodoni-i { font-family: 'Bodoni Moda', serif; font-style: italic; }
+    .f-oldstandard-i { font-family: 'Old Standard TT', serif; font-style: italic; }
+    .f-volkhov-i { font-family: 'Volkhov', serif; font-style: italic; }
+
+    /* phone number */
+    .f-spacemono { font-family: 'Space Mono', monospace; font-weight: 700; }
+    .f-specialelite { font-family: 'Special Elite', monospace; }
+    .f-cutivemono { font-family: 'Cutive Mono', monospace; }
+    .f-cutivemono-bold-fake {
+      font-family: 'Cutive Mono', monospace;
+      text-shadow: 0.6px 0 0 currentColor, -0.6px 0 0 currentColor;
+    }
+    .f-courierprime-b { font-family: 'Courier Prime', monospace; font-weight: 700; }
+    .f-plexmono-b { font-family: 'IBM Plex Mono', monospace; font-weight: 700; }
+    .f-dmmono { font-family: 'DM Mono', monospace; font-weight: 500; }
+
+    /* step numbers / rotary dial */
+    .f-alfaslab { font-family: 'Alfa Slab One', serif; font-size: 22px; }
+    .f-bowlby { font-family: 'Bowlby One SC', sans-serif; font-size: 22px; }
+    .f-anton { font-family: 'Anton', sans-serif; font-size: 24px; }
+    .f-bebas { font-family: 'Bebas Neue', sans-serif; font-size: 24px; }
+    .f-ultra { font-family: 'Ultra', serif; font-size: 20px; }
+    .f-spacemono-step { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 20px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>HH font comparison v2</h1>
+    <p class="lead">Italic candidates (9 total — original 5 + 4 new), phone-number candidates (Cutive Mono with bolder treatments + alternatives), step-number / rotary-dial candidates.</p>
+
+    <!-- ITALICS -->
+    <div class="section">
+      <h2 class="section-title">Italic — sub-line + mechanic</h2>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <p class="specimen-name">Playfair Display Italic <span class="current-badge">CURRENT</span></p>
+          <p class="specimen-desc">Modern display italic. High-contrast. Curly tails. Magazine.</p>
+        </div>
+        <div class="specimen-sample italic-sample f-playfair-i">
+          For when you feel like venting through a voice note.
+          <span class="mech">Call. Vent. Hear back from someone who's been heartbroken, too.</span>
+        </div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <p class="specimen-name">EB Garamond Italic</p>
+          <p class="specimen-desc">Renaissance book italic. Old-world. Warmer, softer.</p>
+        </div>
+        <div class="specimen-sample italic-sample f-ebgaramond-i">
+          For when you feel like venting through a voice note.
+          <span class="mech">Call. Vent. Hear back from someone who's been heartbroken, too.</span>
+        </div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <p class="specimen-name">Cormorant Garamond Italic</p>
+          <p class="specimen-desc">Refined editorial italic. Delicate. Vintage Vogue.</p>
+        </div>
+        <div class="specimen-sample italic-sample f-cormorant-i">
+          For when you feel like venting through a voice note.
+          <span class="mech">Call. Vent. Hear back from someone who's been heartbroken, too.</span>
+        </div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <p class="specimen-name">Italiana</p>
+          <p class="specimen-desc">Italian display italic. Wide, theatrical. Vintage cinema marquee.</p>
+        </div>
+        <div class="specimen-sample italic-sample f-italiana">
+          For when you feel like venting through a voice note.
+          <span class="mech">Call. Vent. Hear back from someone who's been heartbroken, too.</span>
+        </div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <p class="specimen-name">Lora Italic</p>
+          <p class="specimen-desc">Contemporary-vintage. Friendly, calligraphic, readable.</p>
+        </div>
+        <div class="specimen-sample italic-sample f-lora-i">
+          For when you feel like venting through a voice note.
+          <span class="mech">Call. Vent. Hear back from someone who's been heartbroken, too.</span>
+        </div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <p class="specimen-name">Sorts Mill Goudy Italic</p>
+          <p class="specimen-desc">Letterpress vintage book italic. Slight irregularity. Very 1920s.</p>
+        </div>
+        <div class="specimen-sample italic-sample f-sortsmill-i">
+          For when you feel like venting through a voice note.
+          <span class="mech">Call. Vent. Hear back from someone who's been heartbroken, too.</span>
+        </div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <p class="specimen-name">Bodoni Moda Italic</p>
+          <p class="specimen-desc">Italian high-contrast Didone. More dramatic than Playfair. Vogue cover.</p>
+        </div>
+        <div class="specimen-sample italic-sample f-bodoni-i">
+          For when you feel like venting through a voice note.
+          <span class="mech">Call. Vent. Hear back from someone who's been heartbroken, too.</span>
+        </div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <p class="specimen-name">Old Standard TT Italic</p>
+          <p class="specimen-desc">Actual vintage book printing replica. Pure 19th-century feel.</p>
+        </div>
+        <div class="specimen-sample italic-sample f-oldstandard-i">
+          For when you feel like venting through a voice note.
+          <span class="mech">Call. Vent. Hear back from someone who's been heartbroken, too.</span>
+        </div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <p class="specimen-name">Volkhov Italic</p>
+          <p class="specimen-desc">Warm transitional book italic. Friendly, contemporary-classic.</p>
+        </div>
+        <div class="specimen-sample italic-sample f-volkhov-i">
+          For when you feel like venting through a voice note.
+          <span class="mech">Call. Vent. Hear back from someone who's been heartbroken, too.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHONE NUMBER -->
+    <div class="section">
+      <h2 class="section-title">Phone number — vintage monospace (bolder)</h2>
+      <p class="section-note">You liked Cutive Mono but wanted bolder. Showing Cutive with synthetic bold treatment + real-bold alternatives in the same typewriter family.</p>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <p class="specimen-name">Cutive Mono <span class="current-badge">FAVE</span></p>
+          <p class="specimen-desc">Original weight — your reference.</p>
+        </div>
+        <div class="specimen-sample phone-sample f-cutivemono">1-800-HEARTBR</div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <p class="specimen-name">Cutive Mono + synthetic bold</p>
+          <p class="specimen-desc">Same Cutive Mono with text-shadow trick to fake bold weight. Slight darkening only.</p>
+        </div>
+        <div class="specimen-sample phone-sample f-cutivemono-bold-fake">1-800-HEARTBR</div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <p class="specimen-name">Courier Prime Bold</p>
+          <p class="specimen-desc">REAL bold typewriter. Classic screenplay/manuscript.</p>
+        </div>
+        <div class="specimen-sample phone-sample f-courierprime-b">1-800-HEARTBR</div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <p class="specimen-name">IBM Plex Mono Bold</p>
+          <p class="specimen-desc">Modern bold mono. Cleaner than typewriter. More legible at small sizes.</p>
+        </div>
+        <div class="specimen-sample phone-sample f-plexmono-b">1-800-HEARTBR</div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <p class="specimen-name">Special Elite</p>
+          <p class="specimen-desc">Distressed typewriter — natural weight already heavier than Cutive.</p>
+        </div>
+        <div class="specimen-sample phone-sample f-specialelite">1-800-HEARTBR</div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <p class="specimen-name">DM Mono Medium</p>
+          <p class="specimen-desc">Modern mono with slight typewriter feel. Medium weight (cleaner than bold mono).</p>
+        </div>
+        <div class="specimen-sample phone-sample f-dmmono">1-800-HEARTBR</div>
+      </div>
+    </div>
+
+    <!-- STEP NUMBERS / ROTARY DIAL -->
+    <div class="section">
+      <h2 class="section-title">Step numbers — rotary phone digit feel</h2>
+      <p class="section-note">The digits on your hero rotary phone are bold, chunky, slightly slab-coded — classic AT&T phone-book / vintage signage. The current Space Mono reads modern/tech. These are bolder + more vintage.</p>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <p class="specimen-name">Space Mono Bold <span class="current-badge">CURRENT</span></p>
+          <p class="specimen-desc">Modern mono. Slightly tech-coded.</p>
+        </div>
+        <div class="specimen-sample stepnum-sample">
+          <span class="digit f-spacemono-step">1</span>
+          <span class="digit f-spacemono-step">2</span>
+          <span class="digit f-spacemono-step">3</span>
+          <span class="digit f-spacemono-step">4</span>
+          <span class="digit f-spacemono-step">5</span>
+        </div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <p class="specimen-name">Alfa Slab One</p>
+          <p class="specimen-desc">Chunky slab serif. Closest match to "FOR DIAL TONE" in your reference image. Strong vintage poster / phone-book feel.</p>
+        </div>
+        <div class="specimen-sample stepnum-sample">
+          <span class="digit f-alfaslab">1</span>
+          <span class="digit f-alfaslab">2</span>
+          <span class="digit f-alfaslab">3</span>
+          <span class="digit f-alfaslab">4</span>
+          <span class="digit f-alfaslab">5</span>
+        </div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <p class="specimen-name">Ultra</p>
+          <p class="specimen-desc">Extra-heavy slab. Even chunkier than Alfa Slab. Maximum vintage poster.</p>
+        </div>
+        <div class="specimen-sample stepnum-sample">
+          <span class="digit f-ultra">1</span>
+          <span class="digit f-ultra">2</span>
+          <span class="digit f-ultra">3</span>
+          <span class="digit f-ultra">4</span>
+          <span class="digit f-ultra">5</span>
+        </div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <p class="specimen-name">Bowlby One SC</p>
+          <p class="specimen-desc">Chunky bold display sans. Friendly + commanding. Slight retro signage feel.</p>
+        </div>
+        <div class="specimen-sample stepnum-sample">
+          <span class="digit f-bowlby">1</span>
+          <span class="digit f-bowlby">2</span>
+          <span class="digit f-bowlby">3</span>
+          <span class="digit f-bowlby">4</span>
+          <span class="digit f-bowlby">5</span>
+        </div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <p class="specimen-name">Anton</p>
+          <p class="specimen-desc">Tall condensed bold. Vintage signage / poster. Strong visual presence.</p>
+        </div>
+        <div class="specimen-sample stepnum-sample">
+          <span class="digit f-anton">1</span>
+          <span class="digit f-anton">2</span>
+          <span class="digit f-anton">3</span>
+          <span class="digit f-anton">4</span>
+          <span class="digit f-anton">5</span>
+        </div>
+      </div>
+
+      <div class="specimen">
+        <div class="specimen-meta">
+          <p class="specimen-name">Bebas Neue</p>
+          <p class="specimen-desc">Classic condensed signage font. Cleaner than Anton. Vintage but legible.</p>
+        </div>
+        <div class="specimen-sample stepnum-sample">
+          <span class="digit f-bebas">1</span>
+          <span class="digit f-bebas">2</span>
+          <span class="digit f-bebas">3</span>
+          <span class="digit f-bebas">4</span>
+          <span class="digit f-bebas">5</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
